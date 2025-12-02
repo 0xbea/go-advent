@@ -24,5 +24,5 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		fmt.Println("Error reading file:", err)
 	}
-	fmt.Println("Final pass count:", pass)
+	fmt.Println("Done")
 }
