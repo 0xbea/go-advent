@@ -14,6 +14,8 @@ func main() {
 	}
 	defer file.Close()
 
+	// set initial / global variables
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
