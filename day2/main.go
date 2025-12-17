@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -23,7 +24,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 		// process each line ... there is only one
-		idRanges := strings.Split(line, ",")
+		idRanges := strings.Split(line, ",") // 11-22
 		for _, idRange := range idRanges {
 			startEnd := strings.Split(idRange, "-")
 			start, err := strconv.Atoi(startEnd[0])
@@ -35,21 +36,19 @@ func main() {
 				print(err)
 			}
 			fmt.Println(start, end)
+			// todo: dont bother with range where both have odd digits and same number
 			// invalid ID:  any ID which is made only of some sequence of digits repeated twice.
-			// dont bother with IDs with odd number digits
-			numDigits := start/10 + 1
-			if numDigits%2 != 0 {
-				if end/10+1 == numDigits {
+			// generate invalid IDs for a range
+			for i := start; i <= end; i++ {
+				// each range has a set
+				// dont bother with IDs with odd number digits
+				numDigits := len(strconv.Itoa(i))
+				if numDigits%2 != 0 {
 					continue
 				}
-			}
-			// otherwise generate invalid IDs for a range
-			// split it in half and duplicate digits
-			tenPower := numDigits - 1
-			firstHalf := start / (10 * tenPower) // floor division
-			// lastHalf := end / (10 * tenPower)
-			for i := firstHalf; i <= end; i++ {
-				checkId := i*10*tenPower + i
+				// if even number of digits, take first half and duplicate
+				firstHalf := i / (10 * (numDigits - 1))
+				checkId := firstHalf*int(math.Pow10(numDigits-1)) + firstHalf
 				fmt.Println("checking:", checkId)
 				fmt.Println("numDigits", numDigits)
 				if checkId > end {
