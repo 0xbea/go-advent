@@ -35,21 +35,21 @@ func main() {
 			if err != nil {
 				print(err)
 			}
-			fmt.Println(start, end)
+			// fmt.Println(start, end)
 			// todo: dont bother with range where both have odd digits and same number
 			// invalid ID:  any ID which is made only of some sequence of digits repeated twice.
 			// generate invalid IDs for a range
 			// each range has a set
 			s := map[int]bool{}
 			for i := start; i <= end; i++ {
-
+				fmt.Println("i", i)
 				// dont bother with IDs with odd number digits
 				numDigits := len(strconv.Itoa(i))
 				if numDigits%2 != 0 {
 					continue
 				}
 				// if even number of digits, take first half and duplicate
-				firstHalf := i / (10 * (numDigits - 1))
+				firstHalf := i / int(math.Pow10(numDigits-1))
 				checkId := firstHalf*int(math.Pow10(numDigits-1)) + firstHalf
 				fmt.Println("checking:", checkId)
 				fmt.Println("numDigits", numDigits)
