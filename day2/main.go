@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -49,10 +48,20 @@ func main() {
 					continue
 				}
 				// if even number of digits, take first half and duplicate
-				firstHalf := i / int(math.Pow10(numDigits-1))
-				checkId := firstHalf*int(math.Pow10(numDigits-1)) + firstHalf
+				var firstHalf string
+				var duplicated string
+				firstHalf = strconv.Itoa(i)[:numDigits/2]
+				duplicated = firstHalf + firstHalf
+				checkId, err := strconv.Atoi(duplicated)
+				if err != nil {
+					fmt.Println("Error converting to int:", err)
+					continue
+				}
 				fmt.Println("checking:", checkId)
 				fmt.Println("numDigits", numDigits)
+				if checkId < start {
+					continue
+				}
 				if checkId > end {
 					break
 				}
@@ -67,5 +76,6 @@ func main() {
 		fmt.Println("Error reading file:", err)
 	}
 	fmt.Println(invalidList)
+	// sum the values of the maps now
 	fmt.Println("Done")
 }
