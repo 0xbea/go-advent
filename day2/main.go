@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("test_input")
+	file, err := os.Open("input")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
@@ -41,7 +41,7 @@ func main() {
 			// each range has a set
 			s := map[int]bool{}
 			for i := start; i <= end; i++ {
-				fmt.Println("i", i)
+				// fmt.Println("i", i)
 				// dont bother with IDs with odd number digits
 				numDigits := len(strconv.Itoa(i))
 				if numDigits%2 != 0 {
@@ -57,8 +57,8 @@ func main() {
 					fmt.Println("Error converting to int:", err)
 					continue
 				}
-				fmt.Println("checking:", checkId)
-				fmt.Println("numDigits", numDigits)
+				// fmt.Println("checking:", checkId)
+				// fmt.Println("numDigits", numDigits)
 				if checkId < start {
 					continue
 				}
