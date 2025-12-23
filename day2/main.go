@@ -77,5 +77,12 @@ func main() {
 	}
 	fmt.Println(invalidList)
 	// sum the values of the maps now
+	total := 0
+	for _, m := range invalidList {
+		for num, _ := range m {
+			total += num
+		}
+	}
+	fmt.Println("Total:", total)
 	fmt.Println("Done")
 }
