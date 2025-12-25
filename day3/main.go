@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("test_input")
+	file, err := os.Open("input")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
@@ -19,14 +19,30 @@ func main() {
 	total_jolts := 0
 	for scanner.Scan() {
 		line := scanner.Text()
-		// process each line
+		length := len(line)
 		max_10 := 0
 		max_1 := 0
-		for _, char := range line {
-			num, _ := strconv.Atoi(string(char))
+		var j_start int
+		for i := 0; i < length-1; i++ {
+			num, err := strconv.Atoi(string(line[i]))
+			if err != nil {
+				fmt.Println("Error converting string to int:", err)
+			}
+			if num > max_10 {
+				max_10 = num
+				j_start = i
+			}
+		}
+		for j := j_start + 1; j < length; j++ {
+			num, err := strconv.Atoi(string(line[j]))
+			if err != nil {
+				fmt.Println("Error converting string to int:", err)
+			}
 			if num > max_1 {
-				max_10 = max_1
 				max_1 = num
+				if max_1 == 9 {
+					break
+				}
 			}
 		}
 		joltage := max_10*10 + max_1
