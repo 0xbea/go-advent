@@ -31,6 +31,9 @@ func main() {
 			if num > max_10 {
 				max_10 = num
 				j_start = i
+				if max_10 == 9 {
+					break
+				}
 			}
 		}
 		for j := j_start + 1; j < length; j++ {
